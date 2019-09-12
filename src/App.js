@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Token from './Token';
 import Linodes from './Linodes';
+import Linode from './Linode';
 
 class App extends Component {
   state = {
     linodes: [],
     token: '',
     fetching: false,
-    baseUrl: 'https://api.linode.com/v4/'
+    baseUrl: 'https://api.linode.com/v4/',
+    selectedLinode: -1
   };
 
   handleTokenChanged = (token) => {
@@ -24,7 +26,11 @@ class App extends Component {
     .finally(() => this.setState({ fetching: false }));
   }
 
+  linodeSelected = (selectedLinode) => this.setState({ selectedLinode });
+
   render() {
+    const { state:  { fetching, linodes, selectedLinode } } = this;
+
     return (
       <div className="App">
         <nav className="navbar is-transparent">
@@ -40,11 +46,19 @@ class App extends Component {
             <div className="columns">
               <div className="column">
                 {
-                  !this.state.fetching ? '' :
+                  !fetching ? <p/> :
                   <progress className="progress is-small is-info">Fetching linodes</progress>
                 }
-                <Linodes linodes={this.state.linodes} />
+                <Linodes linodes={linodes} linodeSelected={this.linodeSelected} />
               </div>
+              {
+                selectedLinode !== -1 ? 
+                  <div className="column">
+                    <Linode key={selectedLinode} linode={linodes.find((_, i) => i === selectedLinode)} />
+                  </div>
+                  :
+                  <div />
+              }
             </div>
           </div>
         </section>
