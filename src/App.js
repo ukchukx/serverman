@@ -29,7 +29,7 @@ class App extends Component {
   linodeSelected = (selectedLinode) => this.setState({ selectedLinode });
 
   render() {
-    const { state:  { fetching, linodes, selectedLinode } } = this;
+    const { state:  { baseUrl, fetching, linodes, selectedLinode, token } } = this;
 
     return (
       <div className="App">
@@ -54,7 +54,11 @@ class App extends Component {
               {
                 selectedLinode !== -1 ? 
                   <div className="column">
-                    <Linode key={selectedLinode} linode={linodes.find((_, i) => i === selectedLinode)} />
+                    <Linode 
+                      key={selectedLinode} 
+                      baseUrl={baseUrl} 
+                      token={token} 
+                      linode={linodes.find((_, i) => i === selectedLinode)} />
                   </div>
                   :
                   <div />
