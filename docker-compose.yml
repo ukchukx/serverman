@@ -1,0 +1,8 @@
+version: '3'
+services:
+  serverman:
+    build: .
+    image: serverman
+    container_name: serverman
+    restart: unless-stopped
+    network_mode: host
