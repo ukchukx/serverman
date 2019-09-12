@@ -1,23 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
+import Token from './Token';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    linodes: [],
+    token: ''
+  };
+
+  handleTokenChanged = (token) => {
+    this.setState({ token });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <nav className="navbar is-transparent">
+          <div className="navbar-brand">
+            <a className="navbar-item" href="/">
+              <h1 className="title">Serverman</h1>
+            </a>
+          </div>
+        </nav>
+        <section className="section">
+          <div className="container is-fluid">
+            <Token tokenChanged={this.handleTokenChanged} />
+          </div>
+        </section>
+      </div>
+    );
+  }
 }
 
 export default App;
